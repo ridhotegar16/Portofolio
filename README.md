@@ -1,8 +1,4 @@
-- 👋 Hi, I’m a student at actuarial science at institut teknologi Sumatera
-- 👀 I’m interested in 
-- 🌱 I’m currently learning ...
-- 💞️ I’m looking to collaborate on ...
-- 📫 How to reach me ...
+A Final year Actuarial student who is highly motivated and interested in data. Actively seeking a Data Scientist Internship to hone analytical skills, statistical knowledge, and programming expertise in the context of solving real-world problems for a dynamic organization. Committed to contributing knowledge to the team while developing data manipulation, machine learning, and data visualization skills.
 
 <!---
 ridhotegar16/ridhotegar16 is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
