@@ -344,8 +344,9 @@ section {
 
 article {
   display: flex;
+  align-items: center; /* Agar ikon dan teks sejajar */
   width: 10rem;
-  justify-content: space-around;
+  justify-content: flex-start; /* Mencegah ikon dan teks terlalu berjauhan */
   gap: 0.5rem;
 }
 
