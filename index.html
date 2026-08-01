@@ -1,383 +1,514 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="mediaqueries.css" />
-  </head>
-  <body>
-    <nav id="desktop-nav">
-      <div class="logo">Ridho Tegar Zulianto</div>
-      <div>
-        <ul class="nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ridho Tegar Zulianto — Data Analyst Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EEF2F6;
+    --paper-alt:#E2E8EF;
+    --card:#F7F9FB;
+    --ink:#15213B;
+    --ink-soft:#4A5872;
+    --line:#C7D0DC;
+    --gold:#B8862A;
+    --gold-soft:#F1E3C6;
+    --teal:#1F6F62;
+    --teal-soft:#DCEBE7;
+    --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+  }
+  ::selection{background:var(--gold-soft);color:var(--ink);}
+  a{color:inherit;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:.72rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:flex;align-items:center;gap:.6rem;
+  }
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--gold);display:inline-block;}
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    margin:0;
+    color:var(--ink);
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px;}
+  section{padding:96px 0;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+
+  /* Nav */
+  header.nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    background:rgba(238,242,246,.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1080px;margin:0 auto;padding:0 32px;
+    display:flex;align-items:center;justify-content:space-between;
+    height:64px;
+  }
+  .nav-name{font-family:'IBM Plex Mono',monospace;font-size:.85rem;font-weight:600;letter-spacing:.02em;}
+  .nav-links{display:flex;gap:28px;list-style:none;margin:0;padding:0;}
+  .nav-links a{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
+    text-decoration:none;color:var(--ink-soft);
+    padding:4px 2px;border-bottom:1px solid transparent;
+    transition:.2s;
+  }
+  .nav-links a:hover,.nav-links a:focus-visible{color:var(--ink);border-bottom-color:var(--gold);}
+  .nav-toggle{display:none;}
+
+  /* Hero */
+  .hero{padding-top:168px;padding-bottom:80px;}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:64px;align-items:start;}
+  .hero-tag{font-family:'IBM Plex Mono',monospace;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:18px;}
+  .hero h1{font-size:clamp(2.4rem,4.4vw,3.6rem);line-height:1.08;letter-spacing:-.01em;}
+  .hero h1 em{font-style:normal;color:var(--gold);}
+  .hero p.lede{margin:22px 0 32px;max-width:52ch;color:var(--ink-soft);font-size:1.05rem;}
+  .btn-row{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    font-family:'IBM Plex Mono',monospace;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;
+    padding:13px 22px;border-radius:var(--radius);text-decoration:none;
+    display:inline-flex;align-items:center;gap:8px;transition:.2s;border:1px solid var(--ink);
+  }
+  .btn-primary{background:var(--ink);color:var(--paper);}
+  .btn-primary:hover,.btn-primary:focus-visible{background:var(--gold);border-color:var(--gold);color:var(--ink);}
+  .btn-ghost{background:transparent;color:var(--ink);}
+  .btn-ghost:hover,.btn-ghost:focus-visible{background:var(--ink);color:var(--paper);}
+
+  .portrait-block{
+    border:1px solid var(--line);background:var(--card);
+    padding:18px;
+  }
+  .portrait-block img{width:100%;display:block;filter:grayscale(30%) contrast(1.02);}
+  .portrait-caption{
+    display:flex;justify-content:space-between;
+    font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--ink-soft);
+    margin-top:12px;letter-spacing:.04em;
+  }
+
+  /* KPI ledger strip */
+  .ledger{
+    margin-top:64px;
+    border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+    display:grid;grid-template-columns:repeat(4,1fr);
+  }
+  .ledger-tile{
+    padding:22px 20px;border-right:1px solid var(--line);
+  }
+  .ledger-tile:last-child{border-right:none;}
+  .ledger-num{
+    font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:1.9rem;color:var(--ink);
+    display:flex;align-items:baseline;gap:4px;
+  }
+  .ledger-num .unit{font-size:1rem;color:var(--gold);}
+  .ledger-label{font-size:.76rem;color:var(--ink-soft);margin-top:6px;max-width:22ch;}
+
+  /* Section heads */
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:44px;flex-wrap:wrap;gap:16px;}
+  .section-head h2{font-size:clamp(1.7rem,2.6vw,2.3rem);}
+
+  /* About */
+  .about-grid{display:grid;grid-template-columns:1.3fr .9fr;gap:56px;}
+  .about-grid p{color:var(--ink-soft);margin:0 0 16px;}
+  .cred-card{
+    background:var(--card);border:1px solid var(--line);padding:20px;margin-bottom:16px;
+  }
+  .cred-card .k{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);}
+  .cred-card .v{font-family:'Fraunces',serif;font-size:1.15rem;margin-top:6px;}
+  .cred-card .s{font-size:.85rem;color:var(--ink-soft);margin-top:2px;}
+
+  /* Experience — exhibit rows */
+  .exhibit{
+    display:grid;grid-template-columns:120px 1fr;gap:28px;
+    padding:32px 0;border-top:1px solid var(--line);
+  }
+  .exhibit:last-child{border-bottom:1px solid var(--line);}
+  .exhibit-index{font-family:'IBM Plex Mono',monospace;color:var(--ink-soft);font-size:.8rem;padding-top:4px;}
+  .exhibit-index span{display:block;color:var(--gold);font-size:1.1rem;font-weight:600;margin-bottom:4px;}
+  .exhibit-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:baseline;margin-bottom:6px;}
+  .exhibit-head h3{font-size:1.25rem;}
+  .exhibit-role{color:var(--teal);font-size:.9rem;font-weight:500;margin-bottom:14px;}
+  .exhibit-period{font-family:'IBM Plex Mono',monospace;font-size:.75rem;color:var(--ink-soft);white-space:nowrap;}
+  .kpi-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+  .kpi-chip{
+    background:var(--teal-soft);color:var(--teal);
+    font-family:'IBM Plex Mono',monospace;font-size:.78rem;font-weight:600;
+    padding:6px 10px;border-radius:var(--radius);
+  }
+  .exhibit ul{margin:0;padding-left:18px;color:var(--ink-soft);font-size:.95rem;}
+  .exhibit li{margin-bottom:6px;}
+
+  /* Skills matrix */
+  .matrix{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .matrix-col{background:var(--paper);padding:26px 24px;}
+  .matrix-col h4{
+    font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--gold);margin:0 0 18px;
+  }
+  .skill-row{margin-bottom:14px;}
+  .skill-row .top{display:flex;justify-content:space-between;font-size:.88rem;margin-bottom:6px;}
+  .skill-row .lvl{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--ink-soft);}
+  .bar{height:4px;background:var(--paper-alt);border:1px solid var(--line);}
+  .bar span{display:block;height:100%;background:var(--teal);}
+  .bar.mid span{background:var(--gold);}
+
+  /* Projects */
+  .proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+  .proj-card{
+    background:var(--card);border:1px solid var(--line);
+    display:flex;flex-direction:column;height:100%;
+  }
+  .proj-top{padding:26px 26px 0;}
+  .proj-tag{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);}
+  .proj-card h3{font-size:1.35rem;margin:10px 0 12px;}
+  .proj-card p{color:var(--ink-soft);font-size:.92rem;margin:0 0 18px;}
+  .proj-stats{display:flex;gap:16px;padding:0 26px;margin-bottom:20px;flex-wrap:wrap;}
+  .proj-stats div{font-family:'IBM Plex Mono',monospace;}
+  .proj-stats .n{font-size:1.1rem;font-weight:600;color:var(--ink);}
+  .proj-stats .l{font-size:.65rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em;}
+  .stack-tags{display:flex;gap:8px;flex-wrap:wrap;padding:0 26px;margin-bottom:22px;}
+  .stack-tags span{
+    font-family:'IBM Plex Mono',monospace;font-size:.66rem;border:1px solid var(--line);
+    padding:4px 8px;color:var(--ink-soft);
+  }
+  .proj-link{
+    margin-top:auto;border-top:1px solid var(--line);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 26px;font-family:'IBM Plex Mono',monospace;font-size:.78rem;
+    text-decoration:none;color:var(--ink);text-transform:uppercase;letter-spacing:.05em;
+    transition:.2s;
+  }
+  .proj-link:hover,.proj-link:focus-visible{background:var(--ink);color:var(--paper);}
+
+  /* Contact */
+  .contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;}
+  .contact-list{list-style:none;margin:28px 0 0;padding:0;}
+  .contact-list li{border-top:1px solid var(--line);padding:18px 0;display:flex;justify-content:space-between;align-items:center;}
+  .contact-list li:last-child{border-bottom:1px solid var(--line);}
+  .contact-list .k{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);}
+  .contact-list a{text-decoration:none;font-size:1rem;color:var(--ink);font-weight:500;}
+  .contact-list a:hover{color:var(--gold);}
+  .contact-panel{background:var(--ink);color:var(--paper);padding:40px;}
+  .contact-panel .eyebrow{color:var(--gold-soft);}
+  .contact-panel .eyebrow::before{background:var(--gold-soft);}
+  .contact-panel h3{color:var(--paper);font-size:1.6rem;margin:14px 0 12px;}
+  .contact-panel p{color:#B7C1D3;font-size:.92rem;margin:0 0 24px;}
+  .contact-panel .btn-primary{background:var(--gold);border-color:var(--gold);color:var(--ink);}
+  .contact-panel .btn-primary:hover{background:var(--paper);border-color:var(--paper);}
+
+  footer{padding:32px 0;}
+  .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+  footer p{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--ink-soft);margin:0;}
+  footer .back-top{font-family:'IBM Plex Mono',monospace;font-size:.72rem;text-decoration:none;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em;}
+  footer .back-top:hover{color:var(--gold);}
+
+  [data-reveal]{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease;}
+  [data-reveal].in{opacity:1;transform:none;}
+
+  @media (prefers-reduced-motion:reduce){
+    [data-reveal]{opacity:1;transform:none;transition:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+
+  @media (max-width:860px){
+    .hero-grid,.about-grid,.contact-grid{grid-template-columns:1fr;}
+    .ledger{grid-template-columns:repeat(2,1fr);}
+    .ledger-tile:nth-child(2){border-right:none;}
+    .matrix{grid-template-columns:1fr;}
+    .proj-grid{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+    section{padding:64px 0;}
+    .exhibit{grid-template-columns:1fr;gap:10px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="nav-name mono">R. TEGAR ZULIANTO</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero wrap" id="top" style="border-bottom:1px solid var(--line);">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-tag">Data Analyst · Actuarial Science Graduate</div>
+      <h1>Turning raw records into <em>numbers people can act on.</em></h1>
+      <p class="lede">Ridho Tegar Zulianto — fresh graduate of Actuarial Science (ITERA) with hands-on experience validating and modeling official statistics at BPS Kota Bogor, and building analytics tools in the private sector. Fluent in Python, R, SQL, and the discipline of getting data right the first time.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="cv.pdf">Download CV</a>
+        <a class="btn btn-ghost" href="#projects">View Projects</a>
+        <a class="btn btn-ghost" href="#contact">Contact</a>
       </div>
-    </nav>
-    <nav id="hamburger-nav">
-      <div class="logo">John Doe</div>
-      <div class="hamburger-menu">
-        <div class="hamburger-icon" onclick="toggleMenu()">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div class="menu-links">
-          <li><a href="#about" onclick="toggleMenu()">About</a></li>
-          <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
-          <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
-          <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
-        </div>
+    </div>
+    <div class="portrait-block" data-reveal>
+      <img src="https://ridhotegar16.github.io/Portofolio/assets/700161%20copy.jpg" alt="Foto Ridho Tegar Zulianto">
+      <div class="portrait-caption">
+        <span>Kab. Bogor, ID</span>
+        <span>Est. 2025</span>
       </div>
-    </nav>
-    <section id="profile">
-      <div class="section__pic-container">
-        <img src="./assets/700161 copy.jpg" alt="Ridho Tegar Zulianto profile picture" />
+    </div>
+  </div>
+
+  <div class="ledger" data-reveal>
+    <div class="ledger-tile">
+      <div class="ledger-num">120<span class="unit">K+</span></div>
+      <div class="ledger-label">Data entries validated at 98% accuracy</div>
+    </div>
+    <div class="ledger-tile">
+      <div class="ledger-num">70<span class="unit">%</span></div>
+      <div class="ledger-label">Reduction in data-entry errors via tracker database</div>
+    </div>
+    <div class="ledger-tile">
+      <div class="ledger-num">40<span class="unit">%</span></div>
+      <div class="ledger-label">Workflow efficiency gain from internal tooling</div>
+    </div>
+    <div class="ledger-tile">
+      <div class="ledger-num">12</div>
+      <div class="ledger-label">Statistical reports produced for public &amp; internal use</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="wrap" id="about">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">About</div>
+      <h2>Where actuarial rigor meets applied analytics</h2>
+    </div>
+  </div>
+  <div class="about-grid">
+    <div data-reveal>
+      <p>I'm a fresh graduate in Actuarial Science, actively looking for opportunities in data-related roles. My academic background trained me to think in terms of risk, uncertainty, and quantitative modeling — a lens I now apply to machine learning, deep learning, and everyday data analysis in Python and R.</p>
+      <p>Across three roles — from data entry to statistical assistant to data analyst — the common thread is the same: clean data, validated data, and data presented so the people making decisions can trust it. I'm continuously sharpening my skills in data manipulation, machine learning, and visualization, and I'm looking for a team where that combination is put to work.</p>
+    </div>
+    <div data-reveal>
+      <div class="cred-card">
+        <div class="k">Education</div>
+        <div class="v">B.Sc. Actuarial Science</div>
+        <div class="s">Institut Teknologi Sumatera (ITERA) · 2020 – 2025 · GPA 3.18/4.00</div>
       </div>
-      <div class="section__text">
-        <p class="section__text__p1">Hello, I'm</p>
-        <h1 class="title">Ridho Tegar Zulianto</h1>
-        <p class="section__text__p2">Data Enthusiast</p>
-        <div class="btn-container">
-          <button
-            class="btn btn-color-2"
-            onclick="window.open('./assets/Resume.pdf')"
-          >
-            Download CV
-          </button>
-          <button class="btn btn-color-1" onclick="location.href='./#contact'">
-            Contact Info
-          </button>
-        </div>
-        <div id="socials-container">
-          <img
-            src="./assets/linkedin.png"
-            alt="My LinkedIn profile"
-            class="icon"
-            onclick="location.href='https://www.linkedin.com/in/ridhotegarz/'"
-          />
-          <img
-            src="./assets/github.png"
-            alt="My Github profile"
-            class="icon"
-            onclick="location.href='https://github.com/ridhotegar16'"
-          />
-        </div>
+      <div class="cred-card">
+        <div class="k">Certification</div>
+        <div class="v">Junior Data Scientist</div>
+        <div class="s">2023 · Predictive modeling, K-Means &amp; RFM clustering, A/B testing</div>
       </div>
-    </section>
-    <section id="about">
-      <p class="section__text__p1">Get To Know More</p>
-      <h1 class="title">About Me</h1>
-      <div class="section-container">
-        <div class="section__pic-container">
-        </div>
-        <div class="about-details-container">
-          <div class="about-containers">
-            <div class="details-container">
-              <img
-                src="./assets/experience.png"
-                alt="Additional Education"
-                class="icon"
-              />
-              <h3>Additional Education</h3>
-              <p>Binar Academy & Narasio Data <br />As Data Scientist</p>
-            </div>
-            <div class="details-container">
-              <img
-                src="./assets/education.png"
-                alt="Education icon"
-                class="icon"
-              />
-              <h3>Education</h3>
-              <p>Bachelors Degree<br />Of Actuarial Science</p>
-            </div>
-          </div>
-          <div class="text-container">
-            <p>
-              A fresh graduate in Actuarial Science who is highly motivated and actively seeking job opportunities in data-related fields. Skilled in machine learning, deep learning, and proficient in using R and Python for data analysis. Passionate about applying analytical skills, statistical knowledge, and programming expertise to solve real-world problems for a dynamic organization. Committed to contributing valuable insights to the team while continuously enhancing data manipulation, machine learning, and data visualization skills
-            </p>
-          </div>
-        </div>
+      <div class="cred-card">
+        <div class="k">Certification</div>
+        <div class="v">Data Science Intensive</div>
+        <div class="s">2024 · ML for big data, SQL, deep learning, APIs, sentiment analysis</div>
       </div>
-      <img
-        src="./assets/arrow.png"
-        alt="Arrow icon"
-        class="icon arrow"
-        onclick="location.href='./#experience'"
-      />
-    </section>
-    <section id="experience">
-      <p class="section__text__p1">Explore My</p>
-      <h1 class="title">Skills</h1>
-      <div class="experience-details-container">
-        <div class="about-containers">
-          <div class="details-container">
-            <h2 class="experience-sub-title">Data Enthusiast</h2>
-            <div class="article-container">
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Supervised Learning</h3>
-                  <p>Experienced</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Unsupervised Learning</h3>
-                  <p>Experienced</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Machine Learning</h3>
-                  <p>Experienced</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Sqlite & My SQL</h3>
-                  <p>Intermediate</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Deep Learning</h3>
-                  <p>Experienced</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Advanced Machine Learning & AI</h3>
-                  <p>Intermediate</p>
-                </div>
-              </article>
-            </div>
-          </div>
-          <div class="details-container">
-            <h2 class="experience-sub-title">Data Enthusiast</h2>
-            <div class="article-container">
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Python</h3>
-                  <p>Experienced</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Microsoft Office</h3>
-                  <p>Experienced</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Big Data Analytics</h3>
-                  <p>Experienced</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Computational Mathematics </h3>
-                  <p>Experienced</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Data Visualization </h3>
-                  <p>Experienced</p>
-                <div>
-                </article>
-                <article>
-                  <img
-                    src="./assets/checkmark.png"
-                    alt="Experience icon"
-                    class="icon"
-                  />
-                  <div>
-                    <h3>Data Communication </h3>
-                    <p>Experienced</p> 
-                </div>
-              </article>
-            </div>
-          </div>
-        </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="wrap" id="experience">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Experience</div>
+      <h2>Career ledger</h2>
+    </div>
+  </div>
+
+  <div class="exhibit" data-reveal>
+    <div class="exhibit-index">EXHIBIT<span>01</span>Dec 2025 – Jun 2026</div>
+    <div>
+      <div class="exhibit-head">
+        <h3>Statistical Assistant</h3>
+        <div class="exhibit-period mono">BPS Kota Bogor · Bogor</div>
       </div>
-      <img
-        src="./assets/arrow.png"
-        alt="Arrow icon"
-        class="icon arrow"
-        onclick="location.href='./#projects'"
-      />
-    </section>
-    <section id="projects">
-      <p class="section__text__p1">Browse My Recent</p>
-      <h1 class="title">Projects</h1>
-      <div class="experience-details-container">
-        <div class="about-containers">
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./assets/project-1.png"
-                alt="Project 1"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">Project One</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='https://github.com/ridhotegar16/ClusteringKmeans'"
-              >
-                Github
-              </button>
-            </div>
-          </div>
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./assets/project-2.png"
-                alt="Project 2"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">Project Two</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='https://github.com/ridhotegar16/PrediksiSaham'"
-              >
-                Github
-              </button>
-              </button>
-            </div>
-          </div>
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./assets/project-3.png"
-                alt="Project 3"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">Project Three</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='https://github.com/ridhotegar16/PrediksiHargaRumah'"
-              >
-                Github
-              </button>
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='https://prediksihargarumahindonesia.streamlit.app/'"
-              >
-                Live Demo
-              </button>
-            </div>
-          </div>
-        </div>
+      <div class="kpi-row">
+        <span class="kpi-chip">98% accuracy</span>
+        <span class="kpi-chip">↓20% processing time</span>
+        <span class="kpi-chip">↓30% retrieval time</span>
+        <span class="kpi-chip">&lt;2% error rate</span>
       </div>
-      <img
-        src="./assets/arrow.png"
-        alt="Arrow icon"
-        class="icon arrow"
-        onclick="location.href='./#contact'"
-      />
-    </section>
-    <section id="contact">
-      <p class="section__text__p1">Get in Touch</p>
-      <h1 class="title">Contact Me</h1>
-      <div class="contact-info-upper-container">
-        <div class="contact-info-container">
-          <img
-            src="./assets/email.png"
-            alt="Email icon"
-            class="icon contact-icon email-icon"
-          />
-          <p><a href="mailto:examplemail@gmail.com">ridhotegarzulianto@gmail.com</a></p>
-        </div>
-        <div class="contact-info-container">
-          <img
-            src="./assets/linkedin.png"
-            alt="LinkedIn icon"
-            class="icon contact-icon"
-          />
-          <p><a href="https://www.linkedin.com/in/ridhotegarz/'">LinkedIn</a></p>
-        </div>
+      <ul>
+        <li>Validated 120,000+ data entries across multiple sources and supported the design and rollout of two regional surveys, including the Economic Census.</li>
+        <li>Cleaned and processed 10+ datasets with Python and Pandas, and produced 12 statistical reports and visualizations for public and internal use.</li>
+        <li>Maintained compliance with official data standards and optimized database storage across 100+ datasets.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="exhibit" data-reveal>
+    <div class="exhibit-index">EXHIBIT<span>02</span>Jun 2025 – Oct 2025</div>
+    <div>
+      <div class="exhibit-head">
+        <h3>Data Analyst</h3>
+        <div class="exhibit-period mono">Atmi Kreasi Digital · Tangerang</div>
       </div>
-    </section>
-    <footer>
-      <nav>
-        <div class="nav-links-container">
-          <ul class="nav-links">
-            <li><a href="#about">About</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div>
-      </nav>
-      <p>Copyright &#169; 2024. All Rights Reserved.</p>
-    </footer>
-    <script src="script.js"></script>
-  </body>
+      <div class="kpi-row">
+        <span class="kpi-chip">+40% workflow efficiency</span>
+        <span class="kpi-chip">↓70% entry errors</span>
+      </div>
+      <ul>
+        <li>Built internal tools with Google Sheets and Apps Script that lifted workflow efficiency by 40% across Business Development and Content teams.</li>
+        <li>Designed a Content Tracker database and an automated BD Tools database that reduced manual reporting and improved tracking accuracy.</li>
+        <li>Created interactive performance dashboards and established SOPs for consistent, structured operational workflows.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="exhibit" data-reveal>
+    <div class="exhibit-index">EXHIBIT<span>03</span>Jun 2023 – Sep 2023</div>
+    <div>
+      <div class="exhibit-head">
+        <h3>Data Entry</h3>
+        <div class="exhibit-period mono">BPS Kota Bogor · Kota Bogor</div>
+      </div>
+      <ul>
+        <li>Maintained and managed statistical databases, ensuring accuracy and smooth storage of official data.</li>
+        <li>Performed precise, systematic data entry to support analysis and policy planning, verifying and validating datasets for integrity.</li>
+        <li>Assisted the team with data processing and visualization to support institutional decision-making.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="wrap" id="skills">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Skills</div>
+      <h2>Competency matrix</h2>
+    </div>
+  </div>
+  <div class="matrix" data-reveal>
+    <div class="matrix-col">
+      <h4>Modeling &amp; Analytics</h4>
+      <div class="skill-row"><div class="top"><span>Machine Learning</span><span class="lvl">Experienced</span></div><div class="bar"><span style="width:88%"></span></div></div>
+      <div class="skill-row"><div class="top"><span>Deep Learning</span><span class="lvl">Experienced</span></div><div class="bar"><span style="width:82%"></span></div></div>
+      <div class="skill-row"><div class="top"><span>Supervised Learning</span><span class="lvl">Experienced</span></div><div class="bar"><span style="width:85%"></span></div></div>
+      <div class="skill-row"><div class="top"><span>Unsupervised Learning</span><span class="lvl">Experienced</span></div><div class="bar"><span style="width:82%"></span></div></div>
+      <div class="skill-row"><div class="top"><span>Advanced ML &amp; AI</span><span class="lvl">Intermediate</span></div><div class="bar mid"><span style="width:60%"></span></div></div>
+    </div>
+    <div class="matrix-col">
+      <h4>Programming &amp; Data</h4>
+      <div class="skill-row"><div class="top"><span>Python</span><span class="lvl">Experienced</span></div><div class="bar"><span style="width:90%"></span></div></div>
+      <div class="skill-row"><div class="top"><span>R</span><span class="lvl">Experienced</span></div><div class="bar"><span style="width:85%"></span></div></div>
+      <div class="skill-row"><div class="top"><span>SQLite &amp; MySQL</span><span class="lvl">Intermediate</span></div><div class="bar mid"><span style="width:62%"></span></div></div>
+      <div class="skill-row"><div class="top"><span>Big Data Analytics</span><span class="lvl">Experienced</span></div><div class="bar"><span style="width:80%"></span></div></div>
+      <div class="skill-row"><div class="top"><span>Computational Math</span><span class="lvl">Experienced</span></div><div class="bar"><span style="width:84%"></span></div></div>
+    </div>
+    <div class="matrix-col">
+      <h4>Visualization &amp; Comms</h4>
+      <div class="skill-row"><div class="top"><span>Data Visualization</span><span class="lvl">Experienced</span></div><div class="bar"><span style="width:86%"></span></div></div>
+      <div class="skill-row"><div class="top"><span>Data Communication</span><span class="lvl">Experienced</span></div><div class="bar"><span style="width:85%"></span></div></div>
+      <div class="skill-row"><div class="top"><span>Microsoft Office</span><span class="lvl">Experienced</span></div><div class="bar"><span style="width:88%"></span></div></div>
+      <div class="skill-row"><div class="top"><span>Reporting &amp; Dashboards</span><span class="lvl">Experienced</span></div><div class="bar"><span style="width:83%"></span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="wrap" id="projects">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Projects</div>
+      <h2>Selected work</h2>
+    </div>
+  </div>
+  <div class="proj-grid">
+    <div class="proj-card" data-reveal>
+      <div class="proj-top">
+        <div class="proj-tag">Applied ML · Credit Risk</div>
+        <h3>Credit Risk Scoring Simulator</h3>
+        <p>An interactive dashboard that scores a customer's default risk from their profile — age, employment category, housing status, account history, credit amount and duration — using a trained XGBoost classifier.</p>
+      </div>
+      <div class="proj-stats">
+        <div><div class="n">0.75</div><div class="l">AUC-ROC</div></div>
+        <div><div class="n">0.60</div><div class="l">Precision</div></div>
+        <div><div class="n">0.60</div><div class="l">Recall</div></div>
+      </div>
+      <div class="stack-tags"><span>XGBoost</span><span>Python</span><span>Reflex</span></div>
+      <a class="proj-link" href="https://credit-dashboard-navy-sun.reflex.run" target="_blank" rel="noopener">Open live demo →</a>
+    </div>
+
+    <div class="proj-card" data-reveal>
+      <div class="proj-top">
+        <div class="proj-tag">Unsupervised ML · Clustering</div>
+        <h3>Customer Segmentation</h3>
+        <p>A clustering application that groups customers by behavioral and transactional patterns using K-Means and RFM analysis, surfacing distinct segments to inform targeting and strategy.</p>
+      </div>
+      <div class="proj-stats">
+        <div><div class="n">K-Means</div><div class="l">Algorithm</div></div>
+        <div><div class="n">RFM</div><div class="l">Framework</div></div>
+      </div>
+      <div class="stack-tags"><span>Python</span><span>Scikit-learn</span><span>Flask</span></div>
+      <a class="proj-link" href="https://ridhotegar16.pythonanywhere.com/" target="_blank" rel="noopener">Open live demo →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="wrap" id="contact">
+  <div class="contact-grid">
+    <div data-reveal>
+      <div class="eyebrow">Contact</div>
+      <h2 style="margin-top:14px;">Open to data analyst &amp; data science roles</h2>
+      <ul class="contact-list">
+        <li><span class="k">Email</span><a href="mailto:ridhotegarzulianto@gmail.com">ridhotegarzulianto@gmail.com</a></li>
+        <li><span class="k">LinkedIn</span><a href="https://www.linkedin.com/in/ridhotegarz/" target="_blank" rel="noopener">linkedin.com/in/ridhotegarz</a></li>
+        <li><span class="k">GitHub</span><a href="https://github.com/ridhotegar16" target="_blank" rel="noopener">github.com/ridhotegar16</a></li>
+        <li><span class="k">Location</span><span>Kabupaten Bogor, Indonesia</span></li>
+      </ul>
+    </div>
+    <div class="contact-panel" data-reveal>
+      <div class="eyebrow">Let's talk</div>
+      <h3>Have a role in mind?</h3>
+      <p>I'm currently looking for data analyst and data science opportunities where careful validation and clear reporting actually move decisions.</p>
+      <a class="btn btn-primary" href="mailto:ridhotegarzulianto@gmail.com">Email Me</a>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div class="footer-inner">
+    <p>© 2026 Ridho Tegar Zulianto. All rights reserved.</p>
+    <a class="back-top" href="#top">Back to top ↑</a>
+  </div>
+</footer>
+
+<script>
+  const els = document.querySelectorAll('[data-reveal]');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.15});
+  els.forEach(el=>io.observe(el));
+</script>
+
+</body>
 </html>
